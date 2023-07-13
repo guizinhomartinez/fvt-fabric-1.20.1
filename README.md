@@ -2,15 +2,11 @@
 
 Various client-side tweaks fabric mod, compatible with Sodium/Canvas.
 
-Translations are handled on [Crowdin](https://crowdin.com/project/flours-various-tweaks). If you wish to translate the mod and your language is not listed there, start a thread in [Discussions](https://github.com/Flourick/FVT-fabric/discussions) or message me on Crowdin.
-
-[![Crowdin](https://badges.crowdin.net/flours-various-tweaks/localized.svg)](https://crowdin.com/project/flours-various-tweaks)
-
 ## Installation
 
 1. Download fabric loader from [here](https://fabricmc.net/use/) (**REQUIRES** Fabric-API! Get it [here](https://modrinth.com/mod/fabric-api))
 
-2. Download latest FVT-fabric release from [here](https://github.com/Flourick/FVT-fabric/releases).
+2. Download latest FVT-fabric release from [here](https://github.com/guizinhomartinez/fvt-fabric-1.20.1/releases).
 
 3. Once you run fabric loader a *mods* folder will be created in your *.minecraft* directory. Move the `fvt-fabric-*.jar` and `fabric-api-*.jar` there.
 
