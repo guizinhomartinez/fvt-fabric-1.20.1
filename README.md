@@ -199,6 +199,11 @@ List of all toggleable features. Configuration is in in-game options menu called
 
 ![menu](https://user-images.githubusercontent.com/33128006/174318447-3155eedc-9468-4c50-8db8-3c11401dbdfb.png)
 
+# Compilation
+
+It's essentially the same as every mod. 
+If you don't know how to compile a Minecraft mod, I would highly recommend watching [this]([https://www.youtube.com/watch?v=0Pr_iHlVKsI&t=318s&pp=ygUVc2V0IHVwIDEuMjAga2F1cGVuam9l](https://youtu.be/0Pr_iHlVKsI)) video!
+
 </p>
 </details>
 
