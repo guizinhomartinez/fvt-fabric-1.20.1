@@ -1,0 +1,44 @@
+{
+	"schemaVersion": 1,
+	"id": "fvt",
+	"version": "${version}",
+
+	"name": "Flour's Various Tweaks",
+	"description": "Various client-side tweaks & enhancements mod",
+	"authors": [
+		"Flourick",
+		"Kale Ko"
+	],
+	"contributors": [
+		"jtenner",
+		"gliscowo"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/fvt",
+		"sources": "https://github.com/Kale-Ko/FVT-fabric",
+		"issues": "https://github.com/Kale-Ko/FVT-fabric/issues"
+	},
+
+	"license": "MIT",
+	"icon": "assets/fvt/icon.png",
+
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"me.flourick.fvt.FVT"
+		],
+		"modmenu": [
+			"me.flourick.fvt.settings.ModMenuSettingsImpl"
+		]
+	},
+	"mixins": [
+		"fvt.mixins.json"
+	],
+
+	"depends": {
+		"fabricloader": ">=0.14.11",
+		"fabric-api": "*",
+		"minecraft": "~1.20.1",
+		"java": ">=17"
+	}
+}

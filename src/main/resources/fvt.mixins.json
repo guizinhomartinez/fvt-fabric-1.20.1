@@ -1,0 +1,41 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "me.flourick.fvt.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"client": [
+		"MinecraftClientMixin",
+		"HeldItemRendererMixin",
+		"InGameHudMixin",
+		"ClientPlayerEntityMixin",
+		"ClientPlayNetworkHandlerMixin",
+		"ClientPlayerInteractionManagerMixin",
+        "DisconnectedScreenMixin",
+		"OptionsScreenMixin",
+		"LightmapTextureManagerMixin",
+		"CameraMixin",
+		"GameRendererMixin",
+		"GenericContainerScreenMixin",
+		"ShulkerBoxScreenMixin",
+		"HorseScreenMixin",
+		"ItemStackMixin",
+		"WorldRendererMixin",
+		"OverworldDimensionEffectsMixin",
+		"LivingEntityMixin",
+		"PlayerInventoryMixin",
+		"CreativeInventoryScreenMixin",
+		"PlayerEntityRendererMixin",
+		"MerchantScreenHandlerMixin",
+		"MerchantScreenMixin",
+		"HandledScreenMixin",
+		"ScreenMixin",
+		"EntityMixin",
+		"SimpleOptionMixin",
+		"ChatHudMixin",
+		"KeyBindingMixin",
+		"ClickableWidgetMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
