@@ -12,8 +12,9 @@ Various client-side tweaks fabric mod, compatible with Sodium/Canvas.
 
 ## Compilation
 
-<p> It's essentially the same as every mod. </p> 
-<p> If you don't know how to compile a Minecraft mod, I would highly recommend watching [this]([https://www.youtube.com/watch?v=0Pr_iHlVKsI&t=318s&pp=ygUVc2V0IHVwIDEuMjAga2F1cGVuam9l](https://youtu.be/0Pr_iHlVKsI)) video! </p>
+It's essentially the same as every mod.
+
+If you don't know how to compile a Minecraft mod, I would highly recommend watching [this](https://youtu.be/0Pr_iHlVKsI) video!
 
 ## Passive Features
 
