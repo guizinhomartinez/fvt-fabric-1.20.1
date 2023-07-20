@@ -17,7 +17,6 @@ import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.option.AttackIndicator;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.JumpingMount;
 import net.minecraft.entity.LivingEntity;
@@ -36,7 +35,7 @@ import net.minecraft.util.math.random.Random;
  * @author Flourick
  */
 @Mixin(InGameHud.class)
-abstract class InGameHudMixin extends Object
+abstract class InGameHudMixin
 {
 	@Final
 	@Shadow
@@ -154,7 +153,7 @@ abstract class InGameHudMixin extends Object
 		}
 	}
 
-	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderVignetteOverlay(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/entity/Entity;)V", ordinal = 0))
+	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderVignetteOverlay(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/entity/Entity;)V", ordinal = 0))
 	private void hijackRenderVignetteOverlay(InGameHud igHud, DrawContext context, Entity entity)
 	{
 		if(!FVT.OPTIONS.noVignette.getValue()) {
@@ -162,7 +161,7 @@ abstract class InGameHudMixin extends Object
 		}
 	}
 
-	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderMountJumpBar(Lnet/minecraft/entity/JumpingMount;Lnet/minecraft/client/util/math/MatrixStack;I)V", ordinal = 0))
+	@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderMountJumpBar(Lnet/minecraft/entity/JumpingMount;Lnet/minecraft/client/gui/DrawContext;I)V", ordinal = 0))
 	private void hijackRenderMountJumpBar(InGameHud igHud, JumpingMount mount, DrawContext context, int x)
 	{
 		// makes it so jump bar is only visible while actually jumping
@@ -181,11 +180,12 @@ abstract class InGameHudMixin extends Object
 			}
 		}
 		else if(FVT.MC.interactionManager.hasExperienceBar()) {
-			igHud.renderExperienceBar(context, x);
+				igHud.renderExperienceBar(context, x);
+			}
 		}
 	}
 
-	@Redirect(method = "renderStatusBars(Lnet/minecraft/client/util/math/MatrixStack;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;getHeartRows(I)I", ordinal = 0))
+	@Redirect(method = "renderStatusBars(Lnet/minecraft/client/gui/DrawContext;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;getHeartRows(I)I", ordinal = 0))
 	private int hijackGetHeartRows(InGameHud igHud, int heartCount)
 	{
 		// super rare thing but the air bubbles would overlap mount health if shown (ex. popping out of water and straight onto a horse), so yeah this fixes that
@@ -198,22 +198,22 @@ abstract class InGameHudMixin extends Object
 	}
 
 	@Inject(method = "renderStatusBars", at = @At("HEAD"))
-	private void onRenderStatusBarsBegin(MatrixStack matrices, CallbackInfo info)
+	private void onRenderStatusBarsBegin(DrawContext context, CallbackInfo info)
 	{
 		if(FVT.OPTIONS.autoHideHotbar.getValue()) {
-			matrices.push();
-			matrices.translate(0, FVT_getHotbarHideHeight(), 0);
+			context.getMatrices().push();
+			context.getMatrices().translate(0, FVT_getHotbarHideHeight(), 0);
 		}
 	}
 
 	@Inject(method = "renderStatusBars", at = @At("RETURN"))
-	private void onRenderStatusBarsEnd(MatrixStack matrices, CallbackInfo info)
+	private void onRenderStatusBarsEnd(DrawContext context, CallbackInfo info)
 	{
 		if(FVT.OPTIONS.autoHideHotbar.getValue()) {
-			matrices.pop();
+			context.getMatrices().pop();
 		}
 	}
-	
+
 	@Inject(method = "renderMountHealth", at = @At("HEAD"), cancellable = true)
 	private void onRenderMountHealth(DrawContext context, CallbackInfo info)
 	{
@@ -299,27 +299,27 @@ abstract class InGameHudMixin extends Object
 	}
 
 	@Inject(method = "renderMountHealth", at = @At("RETURN"))
-	private void onRenderMountHealthEnd(MatrixStack matrices, CallbackInfo info)
+	private void onRenderMountHealthEnd(DrawContext context, CallbackInfo info)
 	{
 		if(FVT.OPTIONS.autoHideHotbar.getValue()) {
-			matrices.pop();
+			context.getMatrices().pop();
 		}
 	}
 
 	@Inject(method = "renderExperienceBar", at = @At("HEAD"))
-	private void onRenderExperienceBarBegin(MatrixStack matrices, int x, CallbackInfo info)
+	private void onRenderExperienceBarBegin(DrawContext context, int x, CallbackInfo info)
 	{
 		if(FVT.OPTIONS.autoHideHotbar.getValue()) {
-			matrices.push();
-			matrices.translate(0, FVT_getHotbarHideHeight(), 0);
+			context.getMatrices().push();
+			context.getMatrices().translate(0, FVT_getHotbarHideHeight(), 0);
 		}
 	}
 
 	@Inject(method = "renderExperienceBar", at = @At("RETURN"))
-	private void onRenderExperienceBarEnd(MatrixStack matrices, int x, CallbackInfo info)
+	private void onRenderExperienceBarEnd(DrawContext context, int x, CallbackInfo info)
 	{
 		if(FVT.OPTIONS.autoHideHotbar.getValue()) {
-			matrices.pop();
+			context.getMatrices().pop();
 		}
 	}
 
@@ -330,7 +330,7 @@ abstract class InGameHudMixin extends Object
 		// so yeah enjoy the entire function being rewritten, glorious!
 		if(FVT.OPTIONS.autoHideHotbar.getValue()) {
 			PlayerEntity playerEntity = this.getCameraPlayer();
-			
+
 			if(playerEntity != null) {
 				RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 				RenderSystem.setShader(GameRenderer::getPositionTexProgram);
@@ -390,7 +390,7 @@ abstract class InGameHudMixin extends Object
 
 						int t = (int)(f * 19.0F);
 						RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-						
+
 						context.drawTexture(WIDGETS_TEXTURE, s, r, 0, 94, 18, 18);
 						context.drawTexture(WIDGETS_TEXTURE, s, r + 18 - t, 18, 112 - t, 18, t);
 					}

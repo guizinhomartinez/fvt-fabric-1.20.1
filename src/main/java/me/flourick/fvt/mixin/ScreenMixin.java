@@ -20,7 +20,6 @@ import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 
 /**
  * FEATURES: Container Buttons
@@ -30,17 +29,17 @@ import net.minecraft.client.util.math.MatrixStack;
 @Mixin(Screen.class)
 abstract class ScreenMixin implements IScreen
 {
-    @Shadow
+	@Shadow
     private List<Drawable> drawables;
-    @Shadow
+	@Shadow
     private List<Element> children;
-    @Shadow
+	@Shadow
     private List<Selectable> selectables;
 
 	@Shadow
-	protected ItemRenderer itemRenderer;
+    protected ItemRenderer itemRenderer;
 	@Shadow
-	protected TextRenderer textRenderer;
+    protected TextRenderer textRenderer;
 
     @Override
 	public <T extends Element & Drawable & Selectable> void FVT_addDrawableSelectableChild(T child)

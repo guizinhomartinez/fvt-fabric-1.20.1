@@ -8,6 +8,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import me.flourick.fvt.FVT;
 import me.flourick.fvt.utils.Color;
+import me.flourick.fvt.utils.FVTButtonWidget;
 import me.flourick.fvt.utils.IClickableWidget;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -71,7 +72,7 @@ public class FVTButtonListWidget extends ElementListWidget<FVTButtonListWidget.F
 	}
 
 	// basically a button row in this list widget (or a category)
-	final static class FVTButtonEntry
+	final static class FVTButtonEntry extends ElementListWidget.Entry<FVTButtonListWidget.FVTButtonEntry>
 	{
 		private final List<ClickableWidget> buttons;
 
